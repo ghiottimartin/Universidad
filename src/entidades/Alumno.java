@@ -2,12 +2,13 @@ package entidades;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.ZoneId;
 
 
 public class Alumno {
 	private int IDAlumno, legajo, edad;
 	private String nombre;
-	private LocalDate fechaNacimiento;
+	private java.util.Date fechaNacimiento;
 	
 	public int getIDAlumno() {
 		return IDAlumno;
@@ -24,16 +25,14 @@ public class Alumno {
 	public int getEdad() {
 		return edad;
 	}
-	public void setEdad(int edad) {
-		this.edad = calcularEdad();
-	}
-	private int calcularEdad() {
-		//Convertir string a LocalDate
-		//DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		//LocalDate fechaNac = LocalDate.parse("15/08/1993", fmt);
+	public void setEdad() {
+		//Convierto la propiedad FechaNacimiento de java.sql.Date a java.util.Date
+		java.util.Date fechaNac =  new java.util.Date(this.getFechaNacimiento().getTime());
+		//Con la conversion anterior me permite usar toInstant.atZone.... y calucular edad
+		LocalDate fechaNacimiento = fechaNac.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate ahora = LocalDate.now();
-		Period periodo = Period.between(this.fechaNacimiento, ahora);
-		return periodo.getYears();
+		Period periodo = Period.between(fechaNacimiento, ahora);
+		this.edad = periodo.getYears();
 	}
 	public String getNombre() {
 		return nombre;
@@ -41,11 +40,11 @@ public class Alumno {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public LocalDate getFechaNacimiento() {
+	public java.util.Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-	public void setFechaNacimiento(LocalDate fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
+	public void setFechaNacimiento(java.util.Date date) {
+		this.fechaNacimiento =  date;
 	}
 
 }
