@@ -1,14 +1,13 @@
 package entidades;
 
-import java.time.LocalDate;
 
 public class Inscripcion {
-	private LocalDate fechaInscripcion;
+	private java.util.Date fechaInscripcion;
 	private int estado,IDAlumno,IDCurso;
-	public LocalDate getFechaInscripcion() {
+	public java.util.Date getFechaInscripcion() {
 		return fechaInscripcion;
 	}
-	public void setFechaInscripcion(LocalDate fechaInscripcion) {
+	public void setFechaInscripcion(java.util.Date fechaInscripcion) {
 		this.fechaInscripcion = fechaInscripcion;
 	}
 	public int getEstado() {

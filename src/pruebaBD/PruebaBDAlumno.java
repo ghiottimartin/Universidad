@@ -1,15 +1,8 @@
-package logic;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+package pruebaBD;
 
 import data.DataAlumno;
 import entidades.Alumno;
 import utils.ApplicationException;
-//Consultar Max funciona
-//Coincide Nombre funciona pero tiene que ser exactamente igual
 
 public class PruebaBDAlumno {
 	
@@ -17,6 +10,10 @@ public class PruebaBDAlumno {
 	static Alumno a = new Alumno();
 	public static void main(String[] args) throws ApplicationException {
 		// TODO Auto-generated method stub
+		
+		/* PRUEBA CONSULTARMAX para saber el id del nuevo alumno
+		System.out.println(aluData.consultarMax());
+		*/
 		
 		/* PRUEBA ADD
 		 * Aclaracion: Luego sera probado en la interfaz mediante los inputs
