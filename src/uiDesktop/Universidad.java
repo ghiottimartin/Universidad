@@ -1,28 +1,41 @@
 package uiDesktop;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import entidades.Curso;
 import logic.CtrlCurso;
+import net.proteanit.sql.DbUtils;
 import utils.ApplicationException;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.util.ArrayList;
 
 import javax.swing.JMenu;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import data.DataCurso;
+
 import java.awt.ScrollPane;
 import javax.swing.JScrollPane;
+import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.awt.event.ActionEvent;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 public class Universidad {
 
 	private JFrame frame;
+	private DataCurso cursoData;
 	private ArrayList<Curso> cursos;
-	private CtrlCurso ctrlCurso;
-	private JTable tblCursos;
+	private CtrlCurso ctrlCursos = new CtrlCurso();
+	private JTable tableCursos;
 
 	/**
 	 * Launch the application.
@@ -46,26 +59,9 @@ public class Universidad {
 	 */
 	public Universidad() throws ApplicationException {
 		initialize();
-		cursos = new ArrayList<Curso>();
-		addRowToJTable();
-	}
-
-	private void addRowToJTable() throws ApplicationException {
-		// TODO Auto-generated method stub
-		DefaultTableModel model = (DefaultTableModel) tblCursos.getModel();
-        ArrayList<Curso> cursos = ctrlCurso.getAll();
-        Object rowData[] = new Object[4];
-        for(int i = 0; i < cursos.size(); i++)
-        {
-            rowData[0] = cursos.get(i).getIDCurso();
-            rowData[1] = cursos.get(i).getAsignatura();
-            rowData[2] = cursos.get(i).getCupoMaximo();
-            rowData[3] = cursos.get(i).getDocente();
-            model.addRow(rowData);
-        }
+		cursoData = new DataCurso();
 		
 	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -80,6 +76,9 @@ public class Universidad {
 		
 		JMenu mnCursos = new JMenu("Cursos");
 		menuBar.add(mnCursos);
+		
+		JMenuItem mntmListarCursos = new JMenuItem("Listar Cursos");
+		mnCursos.add(mntmListarCursos);
 		
 		JMenu mnAlumno = new JMenu("Alumno");
 		menuBar.add(mnAlumno);
@@ -109,24 +108,11 @@ public class Universidad {
 		mnAsignatura.add(mntmRecursantes);
 		frame.getContentPane().setLayout(null);
 		
-		JScrollPane jScrollPane = new JScrollPane();
-		jScrollPane.setBounds(1350, 10, 2, 2);
-		frame.getContentPane().add(jScrollPane);
-		tblCursos = new JTable();
-		tblCursos.setBounds(10, 11, 1, 1);
-		frame.getContentPane().add(tblCursos);
-		frame.setVisible(true);
-		
-		tblCursos.setModel(new javax.swing.table.DefaultTableModel(
-	            new Object [][] {
-
-	            },
-	            new String [] {
-	                "ID Curso", "Asignatura", "Cupo Maximo", "Docente"
-	            }
-	        ));
-		jScrollPane.setViewportView(tblCursos);
+		tableCursos = new JTable();
+		tableCursos.setBounds(56, 38, 355, 184);
+		frame.getContentPane().add(tableCursos);
 		
 		
-	}
+		}
 }
+

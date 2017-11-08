@@ -322,6 +322,5 @@ public class DataCurso {
 		}
 		
 		return cursos;
-	}	
-
+	}
 }
