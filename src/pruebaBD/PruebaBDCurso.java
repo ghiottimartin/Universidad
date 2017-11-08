@@ -1,5 +1,8 @@
 package pruebaBD;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import data.DataCurso;
 import entidades.Curso;
 import utils.ApplicationException;
@@ -46,6 +49,12 @@ public class PruebaBDCurso {
 		c.setAsignatura("Matematica Superior");
 		System.out.println(cursoData.coincideNombre(c));
 		*/
+		
+		/* PRUEBA GETALL
+		ArrayList<Curso> cursos = cursoData.getAll();
+		for(int i = 0; i < cursos.size(); i++) {
+			System.out.println(cursos.get(i).getAsignatura());
+		}*/
 	}
 
 }

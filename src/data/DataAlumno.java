@@ -234,20 +234,22 @@ public class DataAlumno {
 			stmt.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ApplicationException("Error en el sql al borrar Alumno");
+			
 		} catch (ApplicationException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ApplicationException("Alumno inexistente");
+			
 		} finally {
 			try {
 				if(stmt!=null)stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				throw new ApplicationException("Error en el sql al borrar Alumno");
+				e.printStackTrace();
 			} catch (ApplicationException e) {
 				// TODO Auto-generated catch block
-				throw new ApplicationException("Alumno inexistente");
+				e.printStackTrace();
 			}
 		}
 		
@@ -271,10 +273,10 @@ public class DataAlumno {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ApplicationException("Error en el sql al buscar Alumno");
 		} catch (ApplicationException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ApplicationException("Alumno no encontrado");
 		}
 		finally {
 			try {
@@ -283,10 +285,10 @@ public class DataAlumno {
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				throw new ApplicationException("Error en el sql al buscar Alumno");
+				e.printStackTrace();
 			} catch (ApplicationException e) {
 				// TODO Auto-generated catch block
-				throw new ApplicationException("Alumno no encontrado");
+				e.printStackTrace();
 			}
 		}
 		

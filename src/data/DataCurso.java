@@ -1,6 +1,7 @@
 package data;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import entidades.*;
 import utils.ApplicationException;
@@ -225,20 +226,20 @@ public class DataCurso {
 			stmt.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ApplicationException("Error en el sql al eliminar el Curso");
 		} catch (ApplicationException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ApplicationException("Curso inexistente");
 		} finally {
 			try {
 				if(stmt!=null)stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				throw new ApplicationException("Error en el sql al eliminar el Curso");
+				e.printStackTrace();
 			} catch (ApplicationException e) {
 				// TODO Auto-generated catch block
-				throw new ApplicationException("Curso inexistente");
+				e.printStackTrace();
 			}
 		}
 		
@@ -262,10 +263,10 @@ public class DataCurso {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ApplicationException("Error en el sql al buscar Curso");
 		} catch (ApplicationException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ApplicationException("Curso inexistente");
 		}
 		finally {
 			try {
@@ -274,14 +275,53 @@ public class DataCurso {
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				throw new ApplicationException("Error en el sql al buscar Curso");
+				e.printStackTrace();
 			} catch (ApplicationException e) {
 				// TODO Auto-generated catch block
-				throw new ApplicationException("Curso inexistente");
+				e.printStackTrace();
 			}
 		}
 		
 		return coincide;		
+	}
+
+	public ArrayList<Curso> getAll() throws ApplicationException {
+		// TODO Auto-generated method stub
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		ArrayList<Curso> cursos = new ArrayList<Curso>();
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select * from cursos");
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				Curso c = new Curso();
+				c.setIDCurso(rs.getInt(1));
+				c.setAsignatura(rs.getString(2));
+				c.setCupoMaximo(rs.getInt(3));
+				c.setDocente(rs.getString(4));
+				cursos.add(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new ApplicationException("Error en el sql al buscar cursos");
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			throw new ApplicationException("No hay cursos");
+		} finally {
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return cursos;
 	}	
 
 }
