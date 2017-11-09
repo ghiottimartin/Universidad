@@ -294,6 +294,42 @@ public class DataAlumno {
 		
 		return coincide;		
 	}
+
+	public int getMaxLegajo() {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+				PreparedStatement stmt = null;
+				ResultSet rs = null;
+				int legajoMax = 0;
+				
+				try {
+					stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select max(legajo) from alumnos");
+					rs = stmt.executeQuery();
+					if(rs!=null && rs.next()){
+						legajoMax =  ((Number) rs.getObject(1)).intValue();				
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ApplicationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				finally {
+					try {
+						if(rs!=null)rs.close();
+						if(stmt!=null)stmt.close();
+						FactoryConexion.getInstancia().releaseConn();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ApplicationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				return legajoMax + 1;
+	}
 	
 	
 

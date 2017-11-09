@@ -21,9 +21,6 @@ import java.awt.event.ActionEvent;
 public class Universidad {
 
 	private JFrame frame;
-	private DataCurso cursoData;
-	private ArrayList<Curso> cursos;
-	private CtrlCurso ctrlCursos;
 	private JDesktopPane desktopPaneMain;
 
 	/**
@@ -47,18 +44,14 @@ public class Universidad {
 	 * @throws ApplicationException 
 	 */
 	public Universidad() throws ApplicationException {
-		initialize();
-		cursoData = new DataCurso();
-		ctrlCursos = new CtrlCurso();
-		cursos = ctrlCursos.getAll();
-		
+		initialize();		
 	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 1372, 740);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -76,13 +69,47 @@ public class Universidad {
 		JMenuItem mntmListarCursos = new JMenuItem("Listar Cursos");
 		mntmListarCursos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JInternalFrameCursos listaCursos = new JInternalFrameCursos();
+				JIFListadoCursos listaCursos = new JIFListadoCursos();
 				listaCursos.setVisible(true);
 				desktopPaneMain.add(listaCursos);
 				
 			}
 		});
 		mnCursos.add(mntmListarCursos);
+		
+		JMenu mnAlumnos = new JMenu("Alumnos");
+		menuBar.add(mnAlumnos);
+		
+		JMenuItem mntmRegistrarAlumnos = new JMenuItem("Registrar alumnos");
+		mntmRegistrarAlumnos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JIFRegistrarAlumno registrarAlumno = new JIFRegistrarAlumno();
+				registrarAlumno.setVisible(true);
+				desktopPaneMain.add(registrarAlumno);
+			}
+		});
+		mnAlumnos.add(mntmRegistrarAlumnos);
+		
+		JMenuItem mntmEditarAlumno = new JMenuItem("Editar alumno");
+		mnAlumnos.add(mntmEditarAlumno);
+		
+		JMenuItem mntmInscribirseAAsignatura = new JMenuItem("Inscribirse a asignatura");
+		mnAlumnos.add(mntmInscribirseAAsignatura);
+		
+		JMenuItem mntmEstadoAcadmico = new JMenuItem("Estado acad\u00E9mico");
+		mnAlumnos.add(mntmEstadoAcadmico);
+		
+		JMenuItem mntmCicloActual = new JMenuItem("Ciclo Actual");
+		mnAlumnos.add(mntmCicloActual);
+		
+		JMenu mnAsignaturas = new JMenu("Asignaturas");
+		menuBar.add(mnAsignaturas);
+		
+		JMenuItem mntmInscriptos = new JMenuItem("Inscriptos");
+		mnAsignaturas.add(mntmInscriptos);
+		
+		JMenuItem mntmRecursantes = new JMenuItem("Recursantes");
+		mnAsignaturas.add(mntmRecursantes);
 		
 		}
 }

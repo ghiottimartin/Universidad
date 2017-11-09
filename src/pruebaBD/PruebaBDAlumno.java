@@ -55,6 +55,10 @@ public class PruebaBDAlumno {
 		/* PRUEBA DELETE
 		 * a.setIDAlumno(11);
 		   aluData.delete(a);*/
+		
+		/* PRUEBA GETMAXLEGAJO
+		System.out.println(aluData.getMaxLegajo());
+		*/
 	}
 
 }

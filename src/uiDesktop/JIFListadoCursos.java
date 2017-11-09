@@ -16,18 +16,19 @@ import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 import org.jdesktop.swingbinding.JTableBinding;
 import org.jdesktop.swingbinding.SwingBindings;
 
+import data.DataCurso;
 import entidades.Curso;
 import logic.CtrlCurso;
 import utils.ApplicationException;
 
-public class JInternalFrameCursos extends JInternalFrame {
+public class JIFListadoCursos extends JInternalFrame {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTable tblCursos;
-	private CtrlCurso ctrlCurso = new CtrlCurso();
+	private DataCurso cursoData = new DataCurso();
 	private ArrayList<Curso> cursos;
 
 	/**
@@ -37,7 +38,7 @@ public class JInternalFrameCursos extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JInternalFrameCursos frame = new JInternalFrameCursos();
+					JIFListadoCursos frame = new JIFListadoCursos();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,22 +50,22 @@ public class JInternalFrameCursos extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JInternalFrameCursos() {
+	public JIFListadoCursos() {
 		try {
-			cursos = ctrlCurso.getAll();
+			cursos = cursoData.getAll();
 		} catch (ApplicationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		setTitle("Fill Data to JTable");
+		setTitle("Listado Cursos");
 		setClosable(true);
 		setMaximizable(true);
 		setResizable(true);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 947, 455);
 		getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(36, 30, 353, 191);
+		scrollPane.setBounds(0, 0, 929, 420);
 		getContentPane().add(scrollPane);
 		tblCursos = new JTable();
 		scrollPane.setViewportView(tblCursos);
