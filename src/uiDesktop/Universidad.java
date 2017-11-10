@@ -91,6 +91,14 @@ public class Universidad {
 		mnAlumnos.add(mntmRegistrarAlumnos);
 		
 		JMenuItem mntmEditarAlumno = new JMenuItem("Editar alumno");
+		mntmEditarAlumno.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JIFEditarAlumno editarAlumno = new JIFEditarAlumno();
+				editarAlumno.setVisible(true);
+				desktopPaneMain.add(editarAlumno);
+				
+			}
+		});
 		mnAlumnos.add(mntmEditarAlumno);
 		
 		JMenuItem mntmInscribirseAAsignatura = new JMenuItem("Inscribirse a asignatura");

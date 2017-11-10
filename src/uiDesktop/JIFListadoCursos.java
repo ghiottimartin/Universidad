@@ -30,6 +30,7 @@ public class JIFListadoCursos extends JInternalFrame {
 	private JTable tblCursos;
 	private DataCurso cursoData = new DataCurso();
 	private ArrayList<Curso> cursos;
+	//Falta cargar con aluData y hacer el binding
 
 	/**
 	 * Launch the application.

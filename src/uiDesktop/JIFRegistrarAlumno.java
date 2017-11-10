@@ -56,11 +56,11 @@ public class JIFRegistrarAlumno extends JInternalFrame {
 		getContentPane().setLayout(null);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(109, 112, 46, 14);
+		lblNombre.setBounds(72, 112, 70, 14);
 		getContentPane().add(lblNombre);
 		
 		JLabel lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento:");
-		lblFechaDeNacimiento.setBounds(47, 156, 103, 14);
+		lblFechaDeNacimiento.setBounds(10, 156, 130, 14);
 		getContentPane().add(lblFechaDeNacimiento);
 		
 		txtNombreAlumno = new JTextField();
@@ -74,7 +74,7 @@ public class JIFRegistrarAlumno extends JInternalFrame {
 		txtFechaNacimiento.setColumns(10);
 		
 		JLabel lblLegajo = new JLabel("Legajo:");
-		lblLegajo.setBounds(109, 198, 46, 14);
+		lblLegajo.setBounds(77, 198, 46, 14);
 		getContentPane().add(lblLegajo);
 		
 		txtLegajo = new JTextField();
@@ -104,7 +104,7 @@ public class JIFRegistrarAlumno extends JInternalFrame {
 		Alumno a = this.mapearDeFormulario();
 		if(a.getFechaNacimiento() != null && a.getNombre() != null) {		
 			aluData.add(a);
-			JOptionPane.showMessageDialog(this, "El alumno ha sid creado con exito. Su legajo es: "+a.getLegajo());
+			JOptionPane.showMessageDialog(this, "El alumno ha sido creado con exito. Su legajo es: "+a.getLegajo());
 			this.txtLegajo.setText(String.valueOf(a.getLegajo()));
 		} 
 	}
@@ -124,13 +124,13 @@ public class JIFRegistrarAlumno extends JInternalFrame {
 
 	private Date convertirStringToDate(String fechaNac) throws ApplicationException {
 		// TODO Auto-generated method stub
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 		Date date = null;
 		try {
 			date = df.parse(fechaNac);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(this, "Ha ingresado una fecha incorrecta. Formato: dd-MM-yyyy");
+			JOptionPane.showMessageDialog(this, "Ha ingresado una fecha incorrecta. Formato: dd/MM/yyyy");
 		}
 		return date;
 	}

@@ -1,6 +1,9 @@
 package data;
 
 import java.sql.*;
+import java.util.ArrayList;
+
+import com.ibm.icu.impl.ICUService.Factory;
 
 import entidades.*;
 import utils.ApplicationException;
@@ -145,16 +148,14 @@ public class DataAlumno {
 		
 		try {
 			stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
-					"update alumnos set id_alumno=?,nombre=?,legajo=?,edad=?,fecha_nacimiento=?"+
+					"update alumnos set nombre=?,edad=?,fecha_nacimiento=?"+
 					" where id_alumno=?");
 			
-			stmt.setInt(1, a.getIDAlumno());
-			stmt.setString(2, a.getNombre());
-			stmt.setInt(3, a.getLegajo());
-			stmt.setInt(4, a.getEdad());
+			stmt.setString(1, a.getNombre());
+			stmt.setInt(2, a.getEdad());
 			//Casteo de java.util.Date a java.sql.Date
-			stmt.setDate(5, new java.sql.Date(a.getFechaNacimiento().getTime()));
-			stmt.setInt(6, a.getIDAlumno());
+			stmt.setDate(3, new java.sql.Date(a.getFechaNacimiento().getTime()));
+			stmt.setInt(4, a.getIDAlumno());
 			stmt.execute();
 			
 			
@@ -329,6 +330,35 @@ public class DataAlumno {
 					}
 				}
 				return legajoMax + 1;
+	}
+
+	public ArrayList<Alumno> getAll() throws ApplicationException{
+		// TODO Auto-generated method stub
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		ArrayList<Alumno> alumnos = new ArrayList<Alumno>();
+		
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select * from alumnos");
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				Alumno a = new Alumno();
+				a.setIDAlumno(rs.getInt("id_alumno"));
+				a.setNombre(rs.getString("nombre"));
+				a.setFechaNacimiento(rs.getDate("fecha_nacimiento"));
+				a.setLegajo(rs.getInt("legajo"));
+				a.setEdad();
+				alumnos.add(a);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new ApplicationException("Error en el sql al buscar alumnos");
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			throw new ApplicationException("No hay alumnos");
+		}
+		
+		return alumnos;
 	}
 	
 	

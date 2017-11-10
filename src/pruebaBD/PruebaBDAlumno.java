@@ -1,5 +1,7 @@
 package pruebaBD;
 
+import javax.swing.JComboBox;
+
 import data.DataAlumno;
 import entidades.Alumno;
 import utils.ApplicationException;
@@ -59,6 +61,17 @@ public class PruebaBDAlumno {
 		/* PRUEBA GETMAXLEGAJO
 		System.out.println(aluData.getMaxLegajo());
 		*/
+		
+		/* PRUEBA GETALL
+		for (int j = 0; j < aluData.getAll().size(); j++) {
+			System.out.println(aluData.getAll().get(j).getNombre());
+		}*/
+		JComboBox<String> combo = new JComboBox<String>();
+		combo.addItem("Juan Perez");
+		combo.setSelectedItem("Juan Perez");
+		Alumno a = aluData.getByName(combo.getSelectedItem().toString());
+		System.out.println(a.getEdad());
+		
 	}
 
 }
