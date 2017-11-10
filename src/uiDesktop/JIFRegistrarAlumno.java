@@ -50,8 +50,8 @@ public class JIFRegistrarAlumno extends JInternalFrame {
 	public JIFRegistrarAlumno() {
 		setTitle("Registrar alumno");
 		setClosable(true);
-		setMaximizable(true);
-		setResizable(true);
+		setMaximizable(false);
+		setResizable(false);
 		setBounds(100, 100, 419, 362);
 		getContentPane().setLayout(null);
 		

@@ -102,6 +102,13 @@ public class Universidad {
 		mnAlumnos.add(mntmEditarAlumno);
 		
 		JMenuItem mntmInscribirseAAsignatura = new JMenuItem("Inscribirse a asignatura");
+		mntmInscribirseAAsignatura.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JIFInscribirseAsignatura inscripcion = new JIFInscribirseAsignatura();
+				inscripcion.setVisible(true);
+				desktopPaneMain.add(inscripcion);
+			}
+		});
 		mnAlumnos.add(mntmInscribirseAAsignatura);
 		
 		JMenuItem mntmEstadoAcadmico = new JMenuItem("Estado acad\u00E9mico");

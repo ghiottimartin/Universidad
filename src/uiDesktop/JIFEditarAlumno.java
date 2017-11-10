@@ -65,8 +65,8 @@ public class JIFEditarAlumno extends JInternalFrame {
 		}
 		setTitle("Editar Alumno");
 		setClosable(true);
-		setMaximizable(true);
-		setResizable(true);
+		setMaximizable(false);
+		setResizable(false);
 		setBounds(100, 100, 419, 362);
 		getContentPane().setLayout(null);
 		

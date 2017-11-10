@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import org.jdesktop.beansbinding.BeanProperty;
@@ -30,7 +32,6 @@ public class JIFListadoCursos extends JInternalFrame {
 	private JTable tblCursos;
 	private DataCurso cursoData = new DataCurso();
 	private ArrayList<Curso> cursos;
-	//Falta cargar con aluData y hacer el binding
 
 	/**
 	 * Launch the application.
@@ -60,8 +61,8 @@ public class JIFListadoCursos extends JInternalFrame {
 		}
 		setTitle("Listado Cursos");
 		setClosable(true);
-		setMaximizable(true);
-		setResizable(true);
+		setMaximizable(false);
+		setResizable(false);
 		setBounds(100, 100, 947, 455);
 		getContentPane().setLayout(null);
 		
