@@ -20,7 +20,6 @@ import org.jdesktop.swingbinding.SwingBindings;
 
 import data.DataCurso;
 import entidades.Curso;
-import logic.CtrlCurso;
 import utils.ApplicationException;
 
 public class JIFListadoCursos extends JInternalFrame {

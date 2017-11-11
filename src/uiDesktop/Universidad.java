@@ -3,17 +3,12 @@ package uiDesktop;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import entidades.Curso;
-import logic.CtrlCurso;
 import utils.ApplicationException;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import java.util.ArrayList;
 
 import javax.swing.JMenu;
-import javax.swing.JTable;
-import data.DataCurso;
 import javax.swing.JDesktopPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -112,6 +107,13 @@ public class Universidad {
 		mnAlumnos.add(mntmInscribirseAAsignatura);
 		
 		JMenuItem mntmEstadoAcadmico = new JMenuItem("Estado acad\u00E9mico");
+		mntmEstadoAcadmico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JIFEstadoAcademico estadoAcademico = new JIFEstadoAcademico();
+				estadoAcademico.setVisible(true);
+				desktopPaneMain.add(estadoAcademico);
+			}
+		});
 		mnAlumnos.add(mntmEstadoAcadmico);
 		
 		JMenuItem mntmCicloActual = new JMenuItem("Ciclo Actual");

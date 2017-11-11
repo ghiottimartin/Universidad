@@ -97,6 +97,10 @@ public class JIFRegistrarAlumno extends JInternalFrame {
 		});
 		btnCrearAlumno.setBounds(106, 262, 195, 23);
 		getContentPane().add(btnCrearAlumno);
+		
+		JLabel label = new JLabel("(dd/MM/yyyy)");
+		label.setBounds(25, 170, 100, 14);
+		getContentPane().add(label);
 	}
 	
 	private void agregarAlumno() throws ApplicationException {

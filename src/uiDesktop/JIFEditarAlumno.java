@@ -79,9 +79,9 @@ public class JIFEditarAlumno extends JInternalFrame {
 		txtNombre.setBounds(164, 84, 129, 20);
 		getContentPane().add(txtNombre);
 		
-		JLabel label_1 = new JLabel("Fecha de Nacimiento:");
-		label_1.setBounds(10, 131, 130, 14);
-		getContentPane().add(label_1);
+		JLabel lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento:\r\n");
+		lblFechaDeNacimiento.setBounds(10, 131, 130, 14);
+		getContentPane().add(lblFechaDeNacimiento);
 		
 		txtFechaNacimiento = new JTextField();
 		txtFechaNacimiento.setColumns(10);
@@ -127,6 +127,10 @@ public class JIFEditarAlumno extends JInternalFrame {
 		});
 		btnBuscar.setBounds(244, 33, 89, 23);
 		getContentPane().add(btnBuscar);		
+		
+		JLabel lblDdmmyyyy = new JLabel("(dd/MM/yyyy)");
+		lblDdmmyyyy.setBounds(29, 144, 100, 14);
+		getContentPane().add(lblDdmmyyyy);
 	}
 	
 	private void buscarAlumno() {
