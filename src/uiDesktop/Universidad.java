@@ -116,13 +116,17 @@ public class Universidad {
 		});
 		mnAlumnos.add(mntmEstadoAcadmico);
 		
-		JMenuItem mntmCicloActual = new JMenuItem("Ciclo Actual");
-		mnAlumnos.add(mntmCicloActual);
-		
 		JMenu mnAsignaturas = new JMenu("Asignaturas");
 		menuBar.add(mnAsignaturas);
 		
 		JMenuItem mntmInscriptos = new JMenuItem("Inscriptos");
+		mntmInscriptos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JIFInscriptos inscriptos = new JIFInscriptos();
+				inscriptos.setVisible(true);
+				desktopPaneMain.add(inscriptos);
+			}
+		});
 		mnAsignaturas.add(mntmInscriptos);
 		
 		JMenuItem mntmRecursantes = new JMenuItem("Recursantes");

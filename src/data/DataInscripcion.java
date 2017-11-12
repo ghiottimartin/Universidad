@@ -282,4 +282,39 @@ public class DataInscripcion  {
 		}
 		return nombreMateriasInscripto;			
 	}
+
+	public ArrayList<Alumno> getInscriptos(String nombreAsignatura) throws ApplicationException {
+		// TODO Auto-generated method stub
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		ArrayList<Alumno> alumnos = new ArrayList<Alumno>();
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(""
+					+ "select a.id_alumno, a.nombre, a.legajo, a.edad, a.fecha_nacimiento \r\n" + 
+					"from inscripciones i\r\n" + 
+					"	inner join alumnos a\r\n" + 
+					"    on i.id_alumno = a.id_alumno\r\n" + 
+					"    inner join cursos c\r\n" + 
+					"    on i.id_curso = c.id_curso\r\n" + 
+					"    where c.asignatura=? and i.estado=1;");
+			stmt.setString(1, nombreAsignatura);
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				Alumno a = new Alumno();
+				a.setIDAlumno(rs.getInt("id_alumno"));
+				a.setNombre(rs.getString("nombre"));
+				a.setLegajo(rs.getInt("legajo"));
+				a.setFechaNacimiento(rs.getDate("fecha_nacimiento"));
+				a.setEdad();
+				alumnos.add(a);				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new ApplicationException("Error en el sql al buscar los inscriptos",e);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			throw new ApplicationException("No hay inscriptos",e);
+		}
+		return alumnos;
+	}
 }

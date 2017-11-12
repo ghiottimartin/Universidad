@@ -116,7 +116,7 @@ public class JIFEstadoAcademico extends JInternalFrame {
 		
 		initDataBindings();
 	}
-	protected void initDataBindings() {
+	private void initDataBindings() {
 		JTableBinding<Curso, List<Curso>, JTable> jTableBindingRegulares = SwingBindings.createJTableBinding(UpdateStrategy.READ, materiasRegulares, tblRegulares);
 
 		BeanProperty<Curso, String> cursoBeanPropertyRegulares = BeanProperty.create("asignatura");
@@ -136,7 +136,7 @@ public class JIFEstadoAcademico extends JInternalFrame {
 		JTableBinding<Curso, List<Curso>, JTable> jTableBindingInscripto = SwingBindings.createJTableBinding(UpdateStrategy.READ, materiasInscripto, tblInscripto);
 		//
 		BeanProperty<Curso, String> cursoBeanPropertyInscripto = BeanProperty.create("asignatura");
-		jTableBindingInscripto.addColumnBinding(cursoBeanPropertyInscripto).setColumnName("Materias Inscripto").setEditable(false);
+		jTableBindingInscripto.addColumnBinding(cursoBeanPropertyInscripto).setColumnName("Ciclo Actual").setEditable(false);
 		
 		jTableBindingInscripto.setEditable(false);
 		jTableBindingInscripto.bind();
