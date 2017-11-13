@@ -23,17 +23,15 @@ import entidades.Curso;
 import utils.ApplicationException;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
 
-public class JIFInscriptos extends JInternalFrame {
-	private JTable tblAlumnosInscriptos;
+public class JIFRecursantes extends JInternalFrame {
+	private JTable tblRecursantes;
 	private JComboBox<String> cmbAsignaturas;
-	private ArrayList<Alumno> alumnosInscriptos;
-	private ArrayList<Curso> cursos;
 	private DataCurso cursoData = new DataCurso();
 	private DataInscripcion inscripcionData = new DataInscripcion();
-	private JTextField txtDocente = new JTextField();
-
+	private ArrayList<Curso> cursos = new ArrayList<Curso>();
+	private ArrayList<Alumno> alumnosNoRegulares = new ArrayList<Alumno>();
+	private ArrayList<Alumno> alumnosRecursantes = new ArrayList<Alumno>();
 	/**
 	 * Launch the application.
 	 */
@@ -41,7 +39,7 @@ public class JIFInscriptos extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JIFInscriptos frame = new JIFInscriptos();
+					JIFRecursantes frame = new JIFRecursantes();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,14 +51,15 @@ public class JIFInscriptos extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JIFInscriptos() {
+	public JIFRecursantes() {
 		try {
 			cursos = cursoData.getAll();
+			
 		} catch (ApplicationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		setTitle("Inscriptos");
+		}		
+		setTitle("Recursantes");
 		setClosable(true);
 		setMaximizable(false);
 		setResizable(false);
@@ -68,48 +67,41 @@ public class JIFInscriptos extends JInternalFrame {
 		getContentPane().setLayout(null);
 		
 		JLabel lblAsignatura = new JLabel("Asignatura:");
-		lblAsignatura.setBounds(31, 29, 120, 14);
+		lblAsignatura.setBounds(31, 43, 120, 14);
 		getContentPane().add(lblAsignatura);
 		
 		cmbAsignaturas = new JComboBox<String>();
 		cmbAsignaturas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					alumnosInscriptos = inscripcionData.getInscriptos(cmbAsignaturas.getSelectedItem().toString());
-					txtDocente.setText(cursoData.getByName(cmbAsignaturas.getSelectedItem().toString()).getDocente());
+					alumnosNoRegulares= inscripcionData.getNoRegulares(cmbAsignaturas.getSelectedItem().toString());
+					alumnosRecursantes = inscripcionData.getRecursantes(alumnosNoRegulares);
 					initDataBindings();
 				} catch (ApplicationException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}			}
-		});
+				}
+				
+			}
+		});	
 		for (int i = 0; i < cursos.size(); i++) {
 			cmbAsignaturas.addItem(cursos.get(i).getAsignatura());
 		}
-		cmbAsignaturas.setBounds(102, 22, 236, 28);
+		cmbAsignaturas.setBounds(102, 36, 236, 28);
 		getContentPane().add(cmbAsignaturas);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 105, 694, 302);			
-		tblAlumnosInscriptos = new JTable();
-		scrollPane.setViewportView(tblAlumnosInscriptos);
+		scrollPane.setBounds(10, 119, 694, 302);			
+		tblRecursantes = new JTable();
+		scrollPane.setColumnHeaderView(tblRecursantes);
 		getContentPane().add(scrollPane);	
-		
-		JLabel lblDocenteACargo = new JLabel("Docente a cargo:");
-		lblDocenteACargo.setBounds(31, 77, 96, 14);
-		getContentPane().add(lblDocenteACargo);
-
-		txtDocente.setEditable(false);
-		txtDocente.setBounds(137, 74, 107, 20);
-		getContentPane().add(txtDocente);
-		txtDocente.setColumns(10);
 		
 		initDataBindings();
 	}
 	
 	private void initDataBindings() {
 		// TODO Auto-generated method stub
-				JTableBinding<Alumno, List<Alumno>, JTable> jTableBinding = SwingBindings.createJTableBinding(UpdateStrategy.READ, alumnosInscriptos, tblAlumnosInscriptos);
+				JTableBinding<Alumno, List<Alumno>, JTable> jTableBinding = SwingBindings.createJTableBinding(UpdateStrategy.READ, alumnosRecursantes, tblRecursantes);
 				//
 				BeanProperty<Alumno, String> cursoBeanProperty_1 = BeanProperty.create("nombre");
 				jTableBinding.addColumnBinding(cursoBeanProperty_1).setColumnName("Nombre").setEditable(false);

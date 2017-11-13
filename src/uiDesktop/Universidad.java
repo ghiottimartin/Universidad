@@ -129,7 +129,14 @@ public class Universidad {
 		});
 		mnAsignaturas.add(mntmInscriptos);
 		
-		JMenuItem mntmRecursantes = new JMenuItem("Recursantes");
+		JMenuItem mntmRecursantes =  new JMenuItem("Recursantes");
+		mntmRecursantes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JIFRecursantes recursantes = new JIFRecursantes();
+				recursantes.setVisible(true);
+				desktopPaneMain.add(recursantes);
+			}
+		});
 		mnAsignaturas.add(mntmRecursantes);
 		
 		}

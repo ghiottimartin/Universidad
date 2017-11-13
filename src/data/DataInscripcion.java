@@ -314,7 +314,97 @@ public class DataInscripcion  {
 		} catch (ApplicationException e) {
 			// TODO Auto-generated catch block
 			throw new ApplicationException("No hay inscriptos",e);
+		} finally {
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			}
+			catch(SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch(ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return alumnos;
+	}
+
+	public ArrayList<Alumno> getNoRegulares(String nombreAsignatura) throws ApplicationException {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		ArrayList<Alumno> alumnos = new ArrayList<Alumno>();
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(""
+					+ "select a.id_alumno, a.nombre, a.fecha_nacimiento, a.legajo "
+					+ "from inscripciones i "
+						+ "inner join alumnos a "
+						+ "on i.id_alumno = a.id_alumno "
+						+ "inner join cursos c "
+						+ "on i.id_curso = c.id_curso "
+					+ "where i.estado=3 and c.asignatura=?");
+			stmt.setString(1, nombreAsignatura);
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				Alumno a = new Alumno();
+				a.setIDAlumno(rs.getInt("id_alumno"));
+				a.setNombre(rs.getString("nombre"));
+				a.setFechaNacimiento(rs.getDate("fecha_nacimiento"));
+				a.setLegajo(rs.getInt("legajo"));
+				a.setEdad();
+				alumnos.add(a);				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new ApplicationException("Error en el sql al buscar los recursantes",e);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			throw new ApplicationException("No hay recursantes",e);
+		} finally {
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			}
+			catch(SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch(ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return alumnos;
+	}
+
+	public ArrayList<Alumno> getRecursantes(ArrayList<Alumno> alumnosNoRegulares) {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+				for (int i = 0; i < alumnosNoRegulares.size(); i++) {			
+				stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+						  "select a.nombre, a.legajo, a.fecha_nacimiento, a.edad "
+						+ "from inscripciones i "
+							+ "inner join alumnos a "
+							+ "on i.id_alumno = a.id_alumno "
+							+ "inner join cursos c "
+							+ "on i.id_curso = c.id_curso "
+						+ "where a.id_alumno=? and i.estado=1");
+				stmt.setInt(1, alumnosNoRegulares.get(i).getIDAlumno());
+				if(!stmt.execute()) {
+					alumnosNoRegulares.remove(alumnosNoRegulares.get(i));
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return alumnosNoRegulares;
 	}
 }
